@@ -1,5 +1,6 @@
 package a3;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.*;
 import java.awt.*;
@@ -31,41 +32,61 @@ public class DelUI {
     JSlider slider = new JSlider(JSlider.HORIZONTAL, 0, 100, 50);
     
     public DelUI() {
-    	window.setSize(WINDOW_HEIGHT, WINDOW_WIDTH);
-        window.setVisible(true);
+    	try{
+    		BufferedImage img = ImageIO.read(new File("default.jpg"));
+    	    ImageIcon icon = new ImageIcon(img);
+    	    JLabel label2 = new JLabel(icon);
+    		
+	    	window.setSize(WINDOW_HEIGHT, WINDOW_WIDTH);
+	        window.setVisible(true);
+	        
+	        // Menu bar
+	        window.setJMenuBar(menubar);
+	        menubar.add(menu);
+	        menu.add(open);
+	        menu.add(save);
+	        menu.add(exit);
+	        
+	        window.getContentPane().add(panel);
+	        panel.setLayout(new GridBagLayout());
+	        GridBagConstraints c = new GridBagConstraints();
+	        
+	        // Label
+	        c.gridx = 0;
+	        c.gridy = 0;
+	        c.gridheight = 1;
+	        c.gridwidth = 4;
+	        c.weightx = 0;
+	        c.weighty = 0;
+	        c.insets = new Insets(5, 5, 5, 5);
+	        panel.add(label, c);
+	        
+	        // Slider
+	        slider.setMinorTickSpacing(2);
+	        slider.setMajorTickSpacing(10);
+	        slider.setPaintTicks(true);
+	        slider.setPaintLabels(true);
+	        slider.setLabelTable(slider.createStandardLabels(10));
+	        c.gridx = 1;
+	        c.gridy = 1;
+	        c.gridwidth = 4;
+	        c.fill = GridBagConstraints.HORIZONTAL;
+	        c.weightx = 1;
+	        panel.add(slider, c);
+	        
+	        // Image
+	        c.gridx = 1;
+	        c.gridy = 2;
+	        c.gridwidth = 4;
+	        c.weightx = 1;
+	        c.weighty = 1;
+	        c.fill = GridBagConstraints.BOTH;
+	        panel.add(label2, c);
         
-        // Menu bar
-        window.setJMenuBar(menubar);
-        menubar.add(menu);
-        menu.add(open);
-        menu.add(save);
-        menu.add(exit);
+    	}catch (IOException e) {
+			e.printStackTrace();
+		}
         
-        window.getContentPane().add(panel);
-        panel.setLayout(new GridBagLayout());
-        
-        GridBagConstraints c = new GridBagConstraints();
-        // Label
-        c.gridx = 0;
-        c.gridy = 0;
-        c.gridheight = 1;
-        c.gridwidth = 1;
-        c.weightx = 0;
-        c.weighty = 0;
-        c.insets = new Insets(5, 5, 5, 5);
-        panel.add(label, c);
-        
-        // Slider
-        slider.setMinorTickSpacing(2);
-        slider.setMajorTickSpacing(10);
-        slider.setPaintTicks(true);
-        slider.setPaintLabels(true);
-        slider.setLabelTable(slider.createStandardLabels(10));
-        c.gridx = 1;
-        c.gridwidth = 4;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.weightx = 1;
-        panel.add(slider, c);
         
         exit.addActionListener(new ActionListener() {
             @Override
