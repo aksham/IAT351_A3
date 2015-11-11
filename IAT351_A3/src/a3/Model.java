@@ -5,6 +5,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.*;
+import javax.swing.filechooser.*;
 
 public class Model {
 
@@ -23,8 +25,30 @@ public class Model {
 
 				img.setRGB(i, j, finalrgb);
 			}
-
 		}
+	}
+	
+	public void opImg () {
+		JFileChooser fc = new JFileChooser();
+		int op = fc.showOpenDialog(fc);
+		 
+        if (op == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+            //This is where a real application would open the file.
+        } else {
+            System.out.println("Open cancelled");
+        }
+	}
+	
+	public void svImg () {
+		JFileChooser fc = new JFileChooser();
+		int sv = fc.showSaveDialog(fc);
+        if (sv == JFileChooser.APPROVE_OPTION) {
+            File svFile = fc.getSelectedFile();
+            //This is where a real application would save the file.
+        } else {
+            System.out.println("Save Cancelled");
+        }
 	}
 
 	public static void main(String[] args) {
