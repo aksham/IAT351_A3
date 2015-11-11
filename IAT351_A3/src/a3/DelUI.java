@@ -2,6 +2,8 @@ package a3;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -21,6 +23,9 @@ public class DelUI {
     
     private JFrame window = new JFrame("A3");
     
+    private GridBagConstraints c = new GridBagConstraints();
+    private JLabel label2;
+    
     JMenuBar menubar = new JMenuBar();
     JMenu menu = new JMenu("File");
     JMenuItem open = new JMenuItem("Open");
@@ -32,16 +37,17 @@ public class DelUI {
     
     JPanel panel = new JPanel();
     JLabel label = new JLabel("Saturation:");
-    JSlider slider = new JSlider(JSlider.HORIZONTAL, 0, 100, 50);
+    JSlider slider = new JSlider(JSlider.HORIZONTAL, 0, 100, 100);
+    
+    String imagePathName = "default.jpg";
     
     public DelUI(Model model, Component comp) {
     	this.model = model;
     	this.comp = comp;
-    	
-    	try{
-    		BufferedImage img = ImageIO.read(new File("default.jpg"));
+
+    		BufferedImage img = Model.loadImage(imagePathName);
     	    ImageIcon icon = new ImageIcon(img);
-    	    JLabel label2 = new JLabel(icon);
+    	    label2 = new JLabel();
     		
 	    	window.setSize(WINDOW_HEIGHT, WINDOW_WIDTH);
 	        window.setVisible(true);
@@ -55,7 +61,7 @@ public class DelUI {
 	        
 	        window.getContentPane().add(panel);
 	        panel.setLayout(new GridBagLayout());
-	        GridBagConstraints c = new GridBagConstraints();
+
 	        
 	        // Label
 	        c.gridx = 0;
@@ -88,10 +94,21 @@ public class DelUI {
 	        c.weighty = 1;
 	        c.fill = GridBagConstraints.BOTH;
 	        panel.add(label2, c);
-        
-    	}catch (IOException e) {
-			e.printStackTrace();
-		}
+	        
+    	slider.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				JSlider satSlider = (JSlider)e.getSource();
+		        if (!satSlider.getValueIsAdjusting()) {
+		            float satAmount = (float)satSlider.getValue()/100;
+		            
+		            System.out.println(satAmount);
+		    	    label2.setIcon(Model.doDesat(imagePathName, satAmount));		    		
+		        }
+			}
+    	});
+    	
+    	
         
         
         exit.addActionListener(new ActionListener() {

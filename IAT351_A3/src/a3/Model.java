@@ -10,7 +10,19 @@ import javax.swing.filechooser.*;
 
 public class Model {
 
-	public void doDesat(BufferedImage img, float am) {
+	public static BufferedImage loadImage(String imagePathName) {
+		BufferedImage img = null;
+		try {
+			img = ImageIO.read(new File(imagePathName));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return img;
+	}
+
+	public static ImageIcon doDesat(String imagePathName, float am) {
+		BufferedImage img = loadImage(imagePathName);
 
 		for (int i = 0; i < img.getWidth(); i++) {
 			for (int j = 0; j < img.getHeight(); j++) {
@@ -26,29 +38,31 @@ public class Model {
 				img.setRGB(i, j, finalrgb);
 			}
 		}
+		ImageIcon imgc = new ImageIcon(img);
+		return imgc;
 	}
-	
-	public void opImg () {
+
+	public void opImg() {
 		JFileChooser fc = new JFileChooser();
 		int op = fc.showOpenDialog(fc);
-		 
-        if (op == JFileChooser.APPROVE_OPTION) {
-            File file = fc.getSelectedFile();
-            //This is where a real application would open the file.
-        } else {
-            System.out.println("Open cancelled");
-        }
+
+		if (op == JFileChooser.APPROVE_OPTION) {
+			File file = fc.getSelectedFile();
+			// This is where a real application would open the file.
+		} else {
+			System.out.println("Open cancelled");
+		}
 	}
-	
-	public void svImg () {
+
+	public void svImg() {
 		JFileChooser fc = new JFileChooser();
 		int sv = fc.showSaveDialog(fc);
-        if (sv == JFileChooser.APPROVE_OPTION) {
-            File svFile = fc.getSelectedFile();
-            //This is where a real application would save the file.
-        } else {
-            System.out.println("Save Cancelled");
-        }
+		if (sv == JFileChooser.APPROVE_OPTION) {
+			File svFile = fc.getSelectedFile();
+			// This is where a real application would save the file.
+		} else {
+			System.out.println("Save Cancelled");
+		}
 	}
 
 	public static void main(String[] args) {

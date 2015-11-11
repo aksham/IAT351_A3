@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="javax.swing.JComponent"/>
-<fullyQualifiedTypeName name="javax.swing.event.ChangeListener"/>
 <fullyQualifiedTypeName name="javax.swing.JSlider"/>
 <fullyQualifiedTypeName name="javax.swing.event.ChangeEvent"/>
+<fullyQualifiedTypeName name="javax.swing.event.ChangeListener"/>
 </qualifiedTypeNameHistroy>
