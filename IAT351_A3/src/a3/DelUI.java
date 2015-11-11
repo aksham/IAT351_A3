@@ -14,6 +14,9 @@ public class DelUI {
     private static final int WINDOW_WIDTH = 500;
     private static final int TEXT_WIDTH = 20;
     
+	private Model model;
+	private Component comp;
+    
     private BufferedReader fileInput;
     
     private JFrame window = new JFrame("A3");
@@ -31,7 +34,10 @@ public class DelUI {
     JLabel label = new JLabel("Saturation:");
     JSlider slider = new JSlider(JSlider.HORIZONTAL, 0, 100, 50);
     
-    public DelUI() {
+    public DelUI(Model model, Component comp) {
+    	this.model = model;
+    	this.comp = comp;
+    	
     	try{
     		BufferedImage img = ImageIO.read(new File("default.jpg"));
     	    ImageIcon icon = new ImageIcon(img);
@@ -98,12 +104,6 @@ public class DelUI {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		SwingUtilities.invokeLater(new Runnable() {
-            public void run () {
-                // Make and display the window.
-                new DelUI();
-            }
-        });
 
 	}
 
