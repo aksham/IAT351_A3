@@ -10,10 +10,11 @@ import javax.swing.filechooser.*;
 
 public class Model {
 
-	public static BufferedImage loadImage(String imagePathName) {
+	public static BufferedImage loadImage(File imagePathName) {
 		BufferedImage img = null;
+
 		try {
-			img = ImageIO.read(new File(imagePathName));
+			img = ImageIO.read(imagePathName);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -21,7 +22,7 @@ public class Model {
 		return img;
 	}
 
-	public static ImageIcon doDesat(String imagePathName, float am) {
+	public static ImageIcon doDesat(File imagePathName, float am) {
 		BufferedImage img = loadImage(imagePathName);
 
 		for (int i = 0; i < img.getWidth(); i++) {
@@ -40,18 +41,6 @@ public class Model {
 		}
 		ImageIcon imgc = new ImageIcon(img);
 		return imgc;
-	}
-
-	public void opImg() {
-		JFileChooser fc = new JFileChooser();
-		int op = fc.showOpenDialog(fc);
-
-		if (op == JFileChooser.APPROVE_OPTION) {
-			File file = fc.getSelectedFile();
-			// This is where a real application would open the file.
-		} else {
-			System.out.println("Open cancelled");
-		}
 	}
 
 	public void svImg() {
