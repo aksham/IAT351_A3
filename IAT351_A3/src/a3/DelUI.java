@@ -1,6 +1,5 @@
 package a3;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -10,21 +9,18 @@ import java.awt.event.*;
 import java.awt.image.*;
 import java.io.*;
 
-public class DelUI {
+public class DelUI extends Component {
 
 	private static final int WINDOW_HEIGHT = 500;
 	private static final int WINDOW_WIDTH = 500;
-	private static final int TEXT_WIDTH = 20;
 
 	private Model model;
 	private Component comp;
 
-	private BufferedReader fileInput;
-
 	private JFrame window = new JFrame("A3");
 
 	private GridBagConstraints c = new GridBagConstraints();
-	private JLabel label2;
+	private JLabel placeholder;
 
 	JMenuBar menubar = new JMenuBar();
 	JMenu menu = new JMenu("File");
@@ -36,7 +32,6 @@ public class DelUI {
 
 	JPanel panel = new JPanel();
 	JLabel label = new JLabel("Saturation:");
-	//JSlider slider = new JSlider(JSlider.HORIZONTAL, 0, 100, 100);
 
 	File imagePathName = new File("default.png");
 
@@ -46,7 +41,7 @@ public class DelUI {
 
 		BufferedImage img = Model.loadImage(imagePathName);
 		final ImageIcon icon = new ImageIcon(img);
-		label2 = new JLabel(icon);
+		placeholder = new JLabel(icon);
 
 		window.setSize(WINDOW_HEIGHT, WINDOW_WIDTH);
 		window.setVisible(true);
@@ -86,7 +81,7 @@ public class DelUI {
 		c.weightx = 1;
 		c.weighty = 1;
 		c.fill = GridBagConstraints.BOTH;
-		panel.add(label2, c);
+		panel.add(placeholder, c);
 		
 		open.addActionListener(new ActionListener() {
 			@Override
@@ -100,8 +95,9 @@ public class DelUI {
 
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					final File imagePathName = chooser.getSelectedFile();
-					label2.setIcon(Model.doDesat(imagePathName, 1.0f));
-					// This is where a real application would open the file.
+					placeholder.setIcon(Model.doDesat(imagePathName, 1.0f));
+					
+					// This is the file is opened
 					comp.slider.addChangeListener(new ChangeListener() {
 						@Override
 						public void stateChanged(ChangeEvent e) {
@@ -110,7 +106,7 @@ public class DelUI {
 								float satAmount = (float) satSlider.getValue() / 100;
 
 								System.out.println(satAmount);
-								label2.setIcon(Model.doDesat(imagePathName, satAmount));
+								placeholder.setIcon(Model.doDesat(imagePathName, satAmount));
 							}
 						}
 					});

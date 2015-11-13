@@ -2,8 +2,6 @@ package a3;
 
 import javax.swing.JComponent;
 import javax.swing.JSlider;
-import javax.swing.event.*;
-import javax.swing.event.*;
 
 public class Component extends JComponent{
 	
