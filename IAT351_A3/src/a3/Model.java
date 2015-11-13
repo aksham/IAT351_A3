@@ -43,17 +43,6 @@ public class Model {
 		return imgc;
 	}
 
-	public void svImg() {
-		JFileChooser fc = new JFileChooser();
-		int sv = fc.showSaveDialog(fc);
-		if (sv == JFileChooser.APPROVE_OPTION) {
-			File svFile = fc.getSelectedFile();
-			// This is where a real application would save the file.
-		} else {
-			System.out.println("Save Cancelled");
-		}
-	}
-
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 

@@ -1,0 +1,36 @@
+package a3;
+
+import java.awt.GridBagConstraints;
+
+import javax.swing.*;
+import javax.swing.event.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.event.*;
+import java.awt.image.*;
+import java.io.*;
+
+public class Component {
+	
+	public void addSlider(GridBagConstraints c) {
+		JSlider slider = new JSlider(JSlider.HORIZONTAL, 0, 100, 100);
+		slider.setMinorTickSpacing(2);
+		slider.setMajorTickSpacing(10);
+		slider.setPaintTicks(true);
+		slider.setPaintLabels(true);
+		slider.setLabelTable(slider.createStandardLabels(10));
+		c.gridx = 1;
+		c.gridy = 1;
+		c.gridwidth = 4;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.weightx = 1;
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

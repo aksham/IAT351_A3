@@ -29,7 +29,6 @@ public class DelUI {
 	JMenuBar menubar = new JMenuBar();
 	JMenu menu = new JMenu("File");
 	JMenuItem open = new JMenuItem("Open");
-	JMenuItem save = new JMenuItem("Save");
 	JMenuItem exit = new JMenuItem("Exit");
 
 	JFileChooser chooser = new JFileChooser();
@@ -37,11 +36,11 @@ public class DelUI {
 
 	JPanel panel = new JPanel();
 	JLabel label = new JLabel("Saturation:");
-	JSlider slider = new JSlider(JSlider.HORIZONTAL, 0, 100, 100);
+	//JSlider slider = new JSlider(JSlider.HORIZONTAL, 0, 100, 100);
 
 	File imagePathName = new File("default.png");
 
-	public DelUI(Model model, Component comp) {
+	public DelUI(Model model, final Component comp) {
 		this.model = model;
 		this.comp = comp;
 
@@ -56,7 +55,6 @@ public class DelUI {
 		window.setJMenuBar(menubar);
 		menubar.add(menu);
 		menu.add(open);
-		menu.add(save);
 		menu.add(exit);
 
 		window.getContentPane().add(panel);
@@ -73,17 +71,13 @@ public class DelUI {
 		panel.add(label, c);
 
 		// Slider
-		slider.setMinorTickSpacing(2);
-		slider.setMajorTickSpacing(10);
-		slider.setPaintTicks(true);
-		slider.setPaintLabels(true);
-		slider.setLabelTable(slider.createStandardLabels(10));
+		comp.addSliderComp();
 		c.gridx = 1;
 		c.gridy = 1;
 		c.gridwidth = 4;
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 1;
-		panel.add(slider, c);
+		panel.add(comp.slider, c);
 
 		// Image
 		c.gridx = 1;
@@ -108,7 +102,7 @@ public class DelUI {
 					final File imagePathName = chooser.getSelectedFile();
 					label2.setIcon(Model.doDesat(imagePathName, 1.0f));
 					// This is where a real application would open the file.
-					slider.addChangeListener(new ChangeListener() {
+					comp.slider.addChangeListener(new ChangeListener() {
 						@Override
 						public void stateChanged(ChangeEvent e) {
 							JSlider satSlider = (JSlider) e.getSource();
@@ -117,36 +111,6 @@ public class DelUI {
 
 								System.out.println(satAmount);
 								label2.setIcon(Model.doDesat(imagePathName, satAmount));
-							}
-						}
-					});
-					save.addActionListener(new ActionListener() {
-						@Override
-						public void actionPerformed(ActionEvent e) {
-							// TODO Auto-generated method stub
-							JFileChooser fc = new JFileChooser();
-							int sv = fc.showSaveDialog(fc);
-							
-							
-							if (sv == JFileChooser.APPROVE_OPTION) {
-
-								try {
-									File svFile = fc.getSelectedFile();
-									//
-									Image imgSave = icon.getImage();
-									
-									BufferedImage export = new BufferedImage(imgSave.getWidth(null),imgSave.getHeight(null),BufferedImage.TYPE_INT_ARGB);
-									Graphics2D g2 = export.createGraphics();
-									g2.drawImage(imgSave, 0, 0, null);
-									
-									g2.dispose();
-									ImageIO.write(export, "jpg", svFile);//new File("output"));
-								} catch (IOException e1) {
-									// TODO Auto-generated catch block
-									e1.printStackTrace();
-								}
-							} else {
-								System.out.println("Save Cancelled");
 							}
 						}
 					});
