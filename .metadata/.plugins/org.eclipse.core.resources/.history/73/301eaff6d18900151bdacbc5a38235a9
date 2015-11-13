@@ -96,8 +96,8 @@ public class DelUI extends Component {
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					final File imagePathName = chooser.getSelectedFile();
 					placeholder.setIcon(Model.doDesat(imagePathName, 1.0f));
-					
 					comp.addChListen(placeholder, imagePathName);
+
 				} else {
 					System.out.println("Open cancelled");
 				}
